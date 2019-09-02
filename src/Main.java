@@ -22,10 +22,10 @@ public class Main {
         R[1] = 0x00000000;
         R[2] = 0x00000000;
 
+        System.out.println("\nEncryption:");
         PrintStream obj = new PrintStream(new File("tst_Encryption.txt"));
         List<String> list = new ArrayList<>();
         Scanner stdin = new Scanner(System.in);
-        System.out.println("\nEncryption:");
 
         for(int i = 0; i < 4; i++) {
             // input 8-bit Hex strings for K values
@@ -61,6 +61,7 @@ public class Main {
 
         encrypt();
 
+        // print to txt file
         for(int i = 0; i < 3; i++) {
             obj.println("L[" + (i) + "] = " + Long.toHexString(L[i]) +
                     "    R[" + (i) + "] = " + Long.toHexString(R[i]));
@@ -68,17 +69,7 @@ public class Main {
 
         obj.close();
 
-        //text file, should be opening in default text editor
         File file = new File("tst_Encryption.txt");
-
-        //first check if Desktop is supported by Platform or not
-        if(!Desktop.isDesktopSupported()){
-            System.out.println("Desktop is not supported");
-            return;
-        }
-
-        Desktop desktop = Desktop.getDesktop();
-        if(file.exists()) desktop.open(file);
     }
 
     private static void encrypt() {
