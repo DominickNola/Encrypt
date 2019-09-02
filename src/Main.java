@@ -79,6 +79,7 @@ public class Main {
         for(int i = 0; i < 2; i++) {
             long a = (R[i] << 4) + K[i + j]; // K[0] and K[2]
             long b;
+            // toglle between them
             if(j == 0) {
                 b = R[i] + DeltaOne;
             } else {
@@ -89,7 +90,6 @@ public class Main {
             long e = L[i] + d;
             R[i + 1] = e;
             L[i + 1] = R[i];
-            // Integer.toHexString(K[i])
             System.out.println("L[" + (i+1) + "] = " + Long.toHexString(L[i+1]) +
                                "    R[" + (i+1) + "] = " + Long.toHexString(R[i+1]));
             if(j == 0) {
