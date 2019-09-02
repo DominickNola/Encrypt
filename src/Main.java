@@ -33,7 +33,7 @@ public class Main {
             list.add(input);
             Long y = Long.parseLong(input, 16);
             K[i] = y;
-            System.out.println(K[i]);
+            //System.out.println(K[i]);
         }
 
         System.out.println("Please input L[0] in Hex String(w/o '0x'): ");
@@ -42,7 +42,7 @@ public class Main {
         String X = "0x" + inputL;
         Long y = Long.parseLong(inputL, 16);
         L[0] = y;
-        System.out.println("L[0] = " +  L[0]);
+        //System.out.println("L[0] = " +  L[0]);
 
         System.out.println("Please input R[0] in Hex String(w/o '0x'): ");
         String inputR = stdin.next();
@@ -50,13 +50,13 @@ public class Main {
         String T = "0x" + inputR;
         Long q = Long.parseLong(inputR, 16);
         R[0] = q;
-        System.out.println("R[0] = " +  R[0]);
+        //System.out.println("R[0] = " +  R[0]);
 
         stdin.close();
 
         String[] arr = list.toArray(new String[0]);
         System.out.println();
-        System.out.println("K Array is " + Arrays.toString(arr));
+        System.out.println("K[] = " + Arrays.toString(arr));
 
         encrypt();
 
@@ -77,6 +77,7 @@ public class Main {
 
         for(int i = 0; i < 2; i++) {
             long a = (R[i] << 4) + K[i + j]; // K[0] and K[2]
+            a = removeCarry(a);
             long b;
             // toglle between them
             if(j == 0) {
@@ -84,9 +85,12 @@ public class Main {
             } else {
                 b = R[i] + DeltaTwo;
             }
+            b = removeCarry(b);
             long c = (R[i] >> 5) + K[i + 1 + j]; // K[1] and K[3]
+            c = removeCarry(c);
             long d = a ^ b ^ c;
             long e = L[i] + d;
+            e = removeCarry(e);
             R[i + 1] = e;
             L[i + 1] = R[i];
             System.out.println("L[" + (i+1) + "] = " + Long.toHexString(L[i+1]) +
@@ -98,6 +102,17 @@ public class Main {
             }
         }
         return;
+    }
+
+    // borrowed this method from Gil Liebovich:
+    public static long removeCarry(long num) {
+        // Use only last 32 bits (eliminating the carry)
+        String str = String.format("%08X", num);
+        if (str.length() > 8) {
+            str = str.substring(str.length() - 8);
+            num = Long.parseLong(str, 16);
+        }
+        return num;
     }
 
 }
