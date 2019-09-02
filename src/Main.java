@@ -85,7 +85,7 @@ public class Main {
                 b = R[i] + DeltaTwo;
             }
             long c = (R[i] >> 5) + K[i + 1 + j]; // K[1] and K[3]
-            long d = a + b + c;
+            long d = a ^ b ^ c;
             long e = L[i] + d;
             R[i + 1] = e;
             L[i + 1] = R[i];
