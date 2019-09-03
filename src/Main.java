@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
@@ -14,13 +13,14 @@ public class Main {
     static long L[] = new long[3];
     static long R[] = new long[3];
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) throws IOException {
 
         L[1] = 0x00000000;
         L[2] = 0x00000000;
         R[1] = 0x00000000;
         R[2] = 0x00000000;
 
+        // I/O
         System.out.println("\nEncryption:");
         PrintStream obj = new PrintStream(new File("tst_Encryption.txt"));
         List<String> list = new ArrayList<>();
@@ -79,7 +79,7 @@ public class Main {
             long a = (R[i] << 4) + K[i + j]; // K[0] and K[2]
             a = removeCarry(a);
             long b;
-            // toglle between them
+            // toggle between them
             if(j == 0) {
                 b = R[i] + DeltaOne;
             } else {
